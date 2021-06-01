@@ -1,0 +1,170 @@
+import java.io.*;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class Main {
+    static Scanner scanner = new Scanner(System.in);
+    static String fileName = "file.txt";
+
+    public static void main(String[] args) {
+        ChooseMenu();
+    }
+
+    static void ChooseMenu() {
+        int index;
+        do {
+            System.out.println("1.Завдання з рядком\n2.Робота з файлом\n3.Вихід");
+            index = scanner.nextByte();
+            switch (index) {
+                case 1: {
+                    do {
+                        System.out.println("1.Вивід всіх символів, які розташовані після першого символу ':'.\n2.К-сть речень, що містять непарну кількість слів\n3.Назад в меню");
+                        index = scanner.nextInt();
+                        switch (index) {
+                            case 1:
+                                TaskOneA();
+                                break;
+                            case 2:
+                                TaskOneB();
+                                break;
+                        }
+                    } while (index != 3);
+                    index = 0;
+                }
+                break;
+                case 2: {
+                    do {
+                        System.out.println("1.Добавити в файл\n2.Створити масив.\n3.Вивести весь файл\n4.Назад в меню");
+                        index = scanner.nextInt();
+                        switch (index) {
+                            case 1:
+                                AddToFile();
+                                break;
+                            case 2:
+                                ArrayCreate();
+                                break;
+                            case 3:
+                                ReadFile();
+                                break;
+                        }
+                    } while (index != 4);
+                    index = 0;
+                }
+                break;
+            }
+        } while (index != 3);
+    }
+
+    static void TaskOneA() {
+        String str;
+        System.out.print("Введіть текст: ");
+        str = scanner.nextLine();
+        str = scanner.nextLine();
+        int amount = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ':') {
+                System.out.println("Символи які росташовані після першого ':': " + amount);
+                for (int j = i; j < str.length(); j++) {
+                    System.out.print(str.charAt(j));
+                }
+                return;
+            }
+        }
+        System.out.println("Умова не виконана");
+
+    }
+
+    static void TaskOneB() {
+        String str[];
+        byte count;
+        do {
+            System.out.print("Введіть к-сть рядків: ");
+            count = scanner.nextByte();
+        } while (count < 0);
+        str = new String[count];
+        str[0] = scanner.nextLine();
+        for (int i = 0; i < count; i++) {
+            System.out.print("Введіть рядок: ");
+            str[i] = scanner.nextLine();
+        }
+        int lineCount = 0;
+        for (int i = 0; i < count; i++) {
+            int wordCount = 1;
+            for (int j = 0; j < str[i].length() - 1; j++) {
+
+                if (str[i].charAt(j) == ' ' || str[i].charAt(j) == ',' && str[i].charAt(j) != ' ' && str[i].charAt(j) != ',' && str[i].length() > 0)
+                    wordCount++;
+            }
+            if (wordCount % 2 != 0) lineCount++;
+        }
+
+        System.out.println("К-сть рядків з непарною к-тю: " + lineCount);
+    }
+
+    static void AddToFile() {
+        System.out.print("Введіть текст: ");
+        String word = scanner.nextLine();
+        word = scanner.nextLine();
+        System.out.println(word);
+        try {
+            FileOutputStream outStream = new FileOutputStream(fileName, true);
+            DataOutputStream dos = new DataOutputStream(outStream);
+            dos.writeUTF(word);
+            outStream.close();
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
+    }
+
+    static void ArrayCreate() {
+        try {
+            System.out.println("hello");
+            FileInputStream fis = new FileInputStream(fileName);
+            DataInputStream dis = new DataInputStream(fis);
+            int count = 0;
+            while (dis.available() > 0) {
+                dis.readUTF();
+                count++;
+            }
+            dis.close();
+            int array[] = new int[count];
+            fis = new FileInputStream(fileName);
+            dis = new DataInputStream(fis);
+            count = 0;
+            while (dis.available() > 0) {
+                array[count] = dis.readUTF().length();
+                count++;
+            }
+            dis.close();
+            System.out.println("Масив:");
+            for (int i = 0; i < array.length; i++) {
+                System.out.print(array[i] + " ");
+            }
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
+        System.out.println();
+
+    }
+
+    static void ReadFile() {
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            DataInputStream dis = new DataInputStream(fis);
+            Scanner sc = new Scanner(fis);
+
+            while (dis.available() > 0) {
+                System.out.println(dis.readUTF());
+            }
+            dis.close();
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
+    }
+
+}
