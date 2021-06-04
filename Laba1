@@ -1,0 +1,254 @@
+import java.util.Scanner;
+
+public class Main {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int index;
+        do {
+            System.out.println("1.Switch...case\n2.y=f(x) (while)\n3.y=f(x) (do...while)\n4.Array\n5.Array (Random)\n6.Matrix\n7.Matrix (Random)\n8.Exit");
+            index = scanner.nextInt();
+            switch (index) {
+                case 1:
+                    Task1();
+                    break;
+                case 2:
+                    Task2VersionOne();
+                    break;
+                case 3:
+                    Task2VersionTwo();
+                    break;
+                case 4:
+                    Task3();
+                    break;
+                case 5:
+                    Task3Random();
+                    break;
+                case 6:
+                    Task4();
+                    break;
+                case 7:
+                    Task4Random();
+                    break;
+                case 8:
+                    System.out.println("Bye.");
+                    ;
+                    break;
+                default:
+                    System.out.println("Bad index.");
+                    break;
+            }
+        } while (index != 8);
+
+    }
+
+
+    public static void Task1() {
+        int index;
+
+        do {
+            System.out.println("Введіть число від 1 до 12:");
+            index = scanner.nextInt();
+        } while (index > 12 || index < 1);
+        switch (index) {
+            case 12:
+            case 1:
+            case 2:
+                System.out.println("Зима");
+                break;
+            case 3:
+            case 4:
+            case 5:
+                System.out.println("Весна");
+                break;
+            case 6:
+            case 7:
+            case 8:
+                System.out.println("Літо");
+            case 9:
+            case 10:
+            case 11:
+                System.out.println("Осінь");
+                break;
+            default:
+                System.out.println("Error");
+                break;
+        }
+
+    }
+
+    public static void Task2VersionOne() {
+        double a = -Math.PI, dx = Math.PI/10;
+        double b = Math.PI;
+        while (a <= b) {
+            System.out.println("x = " + String.format("%.1f", a) + String.format("\tf(x) = %.3f", Math.cos(a) * Math.sin(a)));
+            a += dx;
+        }
+    }
+
+    public static void Task2VersionTwo() {
+        double a = -Math.PI, dx = Math.PI/10;
+        double b = Math.PI;
+
+        do {
+            System.out.println("x = " + String.format("%.1f", a) + String.format("\tf(x) = %.3f", Math.cos(a) * Math.sin(a)));
+            a += dx;
+        } while (a <= b);
+    }
+
+    public static void Task3() {
+        int[] array;
+        int n;
+        System.out.println("Введіть розмір масиву:");
+        n = scanner.nextInt();
+        array = new int[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Введіть array[" + (i + 1) + "]: ");
+            array[i] = scanner.nextInt();
+        }
+        Task3CalcMax(array, n);
+        Task3CalcDob(array, n);
+    }
+
+    public static void Task3Random() {
+        int[] array;
+        int n;
+        System.out.println("Введіть розмір масиву:");
+        n = scanner.nextInt();
+        System.out.println("Random array:");
+        array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = (int) (Math.random() * (200 + 1)) - 100;
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.println("array[" + (i + 1) + "] : " + array[i]);
+        }
+        Task3CalcMax(array, n);
+        Task3CalcDob(array, n);
+    }
+
+    public static void Task3CalcMax(int[] array, int n) {
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            if(Math.abs(array[i]) > Math.abs(array[index])) index = i;
+
+        }
+        System.out.println("Індекс максимального елементу масиву за модулем: " + (index+1));
+    }
+
+    public static void Task3CalcDob(int[] array, int n) {
+        int dob = 1;
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            if (array[i] > 0) {
+                for(int j = i+1; j< n;j++) {
+                    flag = true;
+                    dob *= array[j];
+                }
+                break;
+            }
+        }
+        if(flag) System.out.println("Добуток елементів масиву після першого додатнього: " + dob);
+        else System.out.println("Масив не підходить");
+    }
+
+    public static void Task4() {
+        int[][] matrix;
+        byte n, m;
+        System.out.print("Введіть кількість рядків матриці:");
+        n = scanner.nextByte();
+        System.out.print("Введіть кількість стовбців матриці:");
+        m = scanner.nextByte();
+        matrix = new int[n][m];
+        int array[][] = new int[2][2];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print("Введіть matrix[" + i + "][" + j + "]:");
+                matrix[i][j] = scanner.nextInt();
+                for(int t = 0; t < 2; t++) {
+                    if (matrix[i][j] > matrix[array[t][0]][array[t][1]]){
+                        array[t][0] = i;
+                        array[t][1] = j;
+                    }
+                }
+            }
+        }
+        System.out.println("---------Before---------");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if(matrix[i][j] == 0)
+                {
+                    flag = true;
+                    System.out.print((j+1) + ": ");
+                    for (int tmp_j = 0; tmp_j < m; tmp_j++) {
+                        System.out.print(matrix[i][tmp_j] + " ");
+                    }
+                    System.out.println();
+                    break;
+
+                }
+            }
+
+        }
+        if(!flag)
+        System.out.println("Матриця не підходить");
+    }
+
+    public static void Task4Random() {
+        int[][] matrix;
+        byte n, m;
+        int sum = 0;
+        System.out.print("Введіть кількість рядків матриці:");
+        n = scanner.nextByte();
+        System.out.print("Введіть кількість стовбців матриці:");
+        m = scanner.nextByte();
+        matrix = new int[n][m];
+        int array[][] = new int[2][2];
+        System.out.println("Random matrix[n][m]");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                matrix[i][j] = (int) (Math.random() * (200 + 1)) - 100;
+                for(int t = 0; t < 2; t++) {
+                    if (matrix[i][j] > matrix[array[t][0]][array[t][1]]){
+                        array[t][0] = i;
+                        array[t][1] = j;
+                        break;
+                    }
+                }
+            }
+        }
+        System.out.println("---------Before---------");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if(matrix[i][j] == 0)
+                {
+                    flag = true;
+                    System.out.print((i+1) + ": ");
+                    for (int tmp_j = 0; tmp_j < m; tmp_j++) {
+                        System.out.print(matrix[i][tmp_j] + " ");
+                    }
+                    System.out.println();
+                    break;
+
+                }
+            }
+
+        }
+        if(!flag)
+            System.out.println("Матриця не підходить");
+    }
+}
