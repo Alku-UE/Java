@@ -1,0 +1,155 @@
+package sample;
+
+        import javafx.scene.control.Alert;
+        import java.awt.*;
+        import java.net.URL;
+        import java.util.ResourceBundle;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.Button;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.TextField;
+
+        import javax.swing.*;
+
+public class Controller {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private Label label1;
+
+    @FXML
+    private Button button1;
+
+    @FXML
+    private TextField textBoxX1;
+
+    @FXML
+    private Label label11;
+
+    @FXML
+    private TextField textBoxX2;
+
+    @FXML
+    private Label label13;
+
+    @FXML
+    private TextField textBoxY1;
+
+    @FXML
+    private Label label112;
+
+    @FXML
+    private TextField textBoxY2;
+
+    @FXML
+    private Label label12;
+
+    @FXML
+    private TextField textBoxX3;
+
+    @FXML
+    private Label label111;
+
+    @FXML
+    private TextField textBoxX4;
+
+    @FXML
+    private Label label131;
+
+    @FXML
+    private TextField textBoxY3;
+
+    @FXML
+    private Label label1121;
+
+    @FXML
+    private TextField textBoxY4;
+
+    @FXML
+    void clickButton(ActionEvent event) {
+       
+
+           try{
+               double Ua, Ub, numerator_a, numerator_b, denominator;
+               double x1 = Double.parseDouble(textBoxX1.getText());
+               double y1 = Double.parseDouble(textBoxX1.getText());
+               double x2 = Double.parseDouble(textBoxX2.getText());
+               double y2 = Double.parseDouble(textBoxY2.getText());
+               double x3 = Double.parseDouble(textBoxX3.getText());
+               double y3 = Double.parseDouble(textBoxY3.getText());
+               double x4 = Double.parseDouble(textBoxX4.getText());
+               double y4 = Double.parseDouble(textBoxY4.getText());
+
+               denominator = (y4 - y3) * (x1 - x2) - (x4 - x3) * (y1 - y2);
+               if (denominator == 0) {
+                   if ((x1 * y2 - x2 * y1) * (x4 - x3) - (x3 * y4 - x4 * y3) * (x2 - x1) == 0 && (x1 * y2 - x2 * y1) * (y4 - y3) - (x3 * y4 - x4 * y3) * (y2 - y1) == 0) {
+                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                       alert.setTitle("Інформація");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Відрізки мають спільні точки");
+                       alert.showAndWait();
+                   } else {
+                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                       alert.setTitle("Інформація");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Відрізки не мають спільні точки");
+                       alert.showAndWait();
+                   }
+               } else {
+                   numerator_a = (x4 - x2) * (y4 - y3) - (x4 - x3) * (y4 - y2);
+                   numerator_b = (x1 - x2) * (y4 - y2) - (x4 - x2) * (y1 - y2);
+                   Ua = numerator_a / denominator;
+                   Ub = numerator_b / denominator;
+                   if (Ua >= 0 && Ua <= 1 && Ub >= 0 && Ub <= 1) {
+                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                       alert.setTitle("Інформація");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Відрізки мають спільні точки");
+                       alert.showAndWait();
+                   } else {
+                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                       alert.setTitle("Інформація");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Відрізки не мають спільні точки");
+                       alert.showAndWait();
+                   }
+               }
+
+           }
+
+           catch (NumberFormatException e){
+
+               JOptionPane.showMessageDialog(null, "Введіть координати: "+e);
+           }
+
+    }
+
+        @FXML
+        void initialize () {
+            assert label1 != null : "fx:id=\"label1\" was not injected: check your FXML file 'sample.fxml'.";
+            assert button1 != null : "fx:id=\"button1\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxX1 != null : "fx:id=\"textBoxX1\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label11 != null : "fx:id=\"label11\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxX2 != null : "fx:id=\"textBoxX2\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label13 != null : "fx:id=\"label13\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxY1 != null : "fx:id=\"textBoxY1\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label112 != null : "fx:id=\"label112\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxY2 != null : "fx:id=\"textBoxY2\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label12 != null : "fx:id=\"label12\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxX3 != null : "fx:id=\"textBoxX3\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label111 != null : "fx:id=\"label111\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxX4 != null : "fx:id=\"textBoxX4\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label131 != null : "fx:id=\"label131\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxY3 != null : "fx:id=\"textBoxY3\" was not injected: check your FXML file 'sample.fxml'.";
+            assert label1121 != null : "fx:id=\"label1121\" was not injected: check your FXML file 'sample.fxml'.";
+            assert textBoxY4 != null : "fx:id=\"textBoxY4\" was not injected: check your FXML file 'sample.fxml'.";
+
+        }
+    }
