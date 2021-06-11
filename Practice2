@@ -1,0 +1,68 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArrayTest {
+
+    @org.junit.jupiter.api.Test
+    void sort() {
+        Array a = new Array();
+        a.arr = new Integer[]{5,6,7,8,9,10};
+        Array.sort(a.arr);
+        int n = Array.sort();
+
+    }
+
+    @org.junit.jupiter.api.Test
+    void zavd2() {
+        Array array = new Array();
+        array.arr = new Integer[]{5,6,7,8,9,10};
+        array.zavd2();
+        int n = array.zavd2();
+        System.out.println(n);
+    }
+
+    @org.junit.jupiter.api.Test
+    void zavd1() {
+        Array array = new Array();
+        array.arr = new Integer[]{1,1,13,6,9,10};
+int n = array.zavd1();
+        System.out.println(n);
+    }
+
+    @org.junit.jupiter.api.Test
+    void input() {
+        boolean expected; boolean actual;
+        boolean trouble = false;
+        Array array = new Array(5);
+        array.input();
+        try
+        {
+            array.output();
+        }
+        catch (NullPointerException a)
+        {
+            trouble = true;
+        }
+        actual = trouble;
+        expected = true;
+        assertEquals(expected,actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void output() {
+        boolean expected; boolean actual;
+        boolean trouble = false;
+        Array array = new Array();
+        array.arr = new Integer[]{5,6,7,8,9,10};
+        try
+        {
+            array.output();
+        }
+        catch (Exception a)
+        {
+            trouble = true;
+        }
+        actual = trouble;
+        expected = false;
+        assertEquals(expected,actual);
+    }
+}
